@@ -72,8 +72,6 @@ document.getElementById("btn").onclick = function() {
     let file = getRandomFileName();
     audio.src = '/assets/sound/' + file + '.m4a';
     audio.load();
-    audio.pause()
-    audio.currentTime = 0
     audio.play()
 
 
