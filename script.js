@@ -71,6 +71,7 @@ function playSound() {
     var audio = new Audio('/assets/sound/' + file + '.ogg');
     audio.play();
     if (audio.src.includes("wanau")) {
+    popEmote("wanau");
         document.getElementById("wanau").style.display = "block";
         setTimeout(() => {
             document.getElementById("wanau").style.display = "none";
@@ -78,6 +79,7 @@ function playSound() {
     }
 
     if (audio.src.includes("hic")) {
+    popEmote("hic");
         document.getElementById("hic").style.display = "block";
         setTimeout(() => {
             document.getElementById("hic").style.display = "none";
@@ -85,9 +87,40 @@ function playSound() {
     }
 
     if (audio.src.includes("faq") || audio.src.includes("rizz")) {
+    popEmote("yuyuCry");
         document.getElementById("sob").style.display = "block";
         setTimeout(() => {
             document.getElementById("sob").style.display = "none";
         }, 1000);
     }
+}
+
+//Accepts a string parameter for loading different images
+//lifetime optional parameter doesn't change styling options
+function popEmote(imgName, numElements = 3, lifetime = 1000) {
+  const imgSource = "./assets/images/" + imgName + ".png";
+  //Measured in vh and vw
+  const topBound = 5;
+  const bottomBound = 90;
+  const leftBound = 10;
+  const rightBound = 90;
+
+  for (let i = 0; i < numElements; i++) {
+    const imgElement = document.createElement("img");
+    imgElement.src = imgSource;
+
+    const popDiv = document.createElement("div");
+    popDiv.appendChild(imgElement);
+    popDiv.classList.add("emote-pop");
+
+    popDiv.style.top = Math.random() * (bottomBound - topBound) + "vh";
+    popDiv.style.left = Math.random() * (rightBound - leftBound) + "vw";
+
+    let popupLayer = document.getElementById("popup-layer");
+    popupLayer.appendChild(popDiv);
+
+    setTimeout(() => {
+      popDiv.remove();
+    }, lifetime);
+  }
 }
