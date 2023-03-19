@@ -1,0 +1,134 @@
+body {
+  min-height: 100%;
+  /* min-width: 100%; */
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  margin-top: 20px;
+  background-color: rgb(49, 93, 143);
+}
+
+h2 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 800;
+  font-size: 2em;
+}
+
+p {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 800;
+}
+
+footer {
+  margin-top: 24px;
+  font-family: Georgia, Times, 'Times New Roman', serif;
+  font-size: 0.6em;
+  text-align: center;
+}
+
+iframe {
+  width: 720px;
+  height: 420px;
+}
+
+
+
+
+
+.center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#btn {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border: 3px solid rgb(82, 50, 94);
+  background-color: #a86db77a;
+  color: rgb(49, 93, 143);
+  font-size: large;
+  font-weight: bolder;
+  padding: 16px 32px;
+  border-radius: 12px 12px 12px 12px;
+  text-align: center;
+  display: inline-block;
+  margin-bottom: 24px;
+  margin-top: 8px;
+  width: 80%;
+  align-self: center;
+}
+
+#btn:hover {
+  color: #0197d3;
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>😭</text></svg>") 16 0, auto;
+}
+
+#btn:active {
+  transform: translateY(4px);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  text-align: center;
+  align-content: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-color: #f8f8ffcc;
+  background-blend-mode: color;
+
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, .25);
+  border-radius: 20px;
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+
+  backdrop-filter: blur(15px);
+}
+
+#wanau {
+  position: absolute;
+  z-index: 999;
+  display: none;
+}
+
+#hic {
+  width: 400px;
+  position: absolute;
+  z-index: 999;
+  display: none;
+}
+
+#sob {
+  width: 200px;
+  position: absolute;
+  z-index: 999;
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  iframe {
+    width: 100%;
+    height: 300px;
+  }
+
+  .center {
+    width: 100%;
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+
+}
+
+
+@media only screen and (max-width: 468px) {
+  iframe {
+    width: 100%;
+    height: 200px;
+  }
+
+}
