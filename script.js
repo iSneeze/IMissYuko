@@ -66,10 +66,17 @@ function getRandomFileName() {
     return files[Math.floor(Math.random() * files.length)]
 }
 
-function playSound() {
+var audio = new Audio("");
+
+document.getElementById("btn").onclick = function() {
     let file = getRandomFileName();
-    var audio = new Audio('/assets/sound/' + file + '.ogg');
-    audio.play();
+    audio.src = '/assets/sound/' + file + '.m4a';
+    audio.load();
+    audio.pause()
+    audio.currentTime = 0
+    audio.play()
+
+
     if (audio.src.includes("wanau")) {
     popEmote("wanau");
         document.getElementById("wanau").style.display = "block";
