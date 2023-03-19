@@ -20,13 +20,13 @@ currentStreamInfo.then((response) => {
             let delta = new Date(archiveResponse[0].available_at);
             timeSince = (d - delta) - archiveResponse[0].duration * 1000;
             let timer = new Date(timeSince);
-            document.getElementById("timer").innerHTML = "Last seen: " + Math.floor(timer.getHours() / 24) + "d " + timer.getHours() + "h " + timer.getMinutes() + "m " + timer.getSeconds() + "s ago streaming:";
+            document.getElementById("timer").innerHTML = "Last seen: " + Math.floor(Math.abs(timeSince / (24*3600*1000))) + "d " + timer.getHours() + "h " + timer.getMinutes() + "m " + timer.getSeconds() + "s ago streaming:";
             document.getElementById("thumbnail").innerHTML = '<iframe src="https://www.youtube.com/embed/' + archiveResponse[0].id + '" title="YouTube video player" frameborder="0" allow="clipboard-write; web-share" allowfullscreen></iframe>';
 
             window.setInterval(function () {
                 timeSince = timeSince + 1000
                 let timer = new Date(timeSince);
-                document.getElementById("timer").innerHTML = "Last seen: " + Math.floor(timer.getHours() / 24) + "d " + timer.getHours() + "h " + timer.getMinutes() + "m " + timer.getSeconds() + "s ago streaming:";
+                document.getElementById("timer").innerHTML = "Last seen: " + Math.floor(Math.abs(timeSince / (24*3600*1000))) + "d " + timer.getHours() + "h " + timer.getMinutes() + "m " + timer.getSeconds() + "s ago streaming:";
             }, 1000)
         })
     } else {
@@ -41,15 +41,16 @@ currentStreamInfo.then((response) => {
             let delta = new Date(response[0].start_scheduled);
             timeUntil = delta - d
             let timer = new Date(timeUntil);
-            document.getElementById("timer").innerHTML = "Time until next stream: " + Math.floor(timer.getHours() / 24) + "d " + timer.getHours() + "h " + timer.getMinutes() + "m " + timer.getSeconds() + "s";
+            document.getElementById("timer").innerHTML = "Time until next stream: " + Math.floor(Math.abs(timeUntil / (24*3600*1000))) + "d " + timer.getHours() + "h " + timer.getMinutes() + "m " + timer.getSeconds() + "s";
             document.getElementById("thumbnail").innerHTML = '<iframe src="https://www.youtube.com/embed/' + response[0].id + '" title="YouTube video player" frameborder="0" allow="clipboard-write; web-share" allowfullscreen></iframe>';
 
             window.setInterval(function () {
                 timeUntil = timeUntil - 1000
                 let timer = new Date(timeUntil);
-                document.getElementById("timer").innerHTML = "Time until next stream: " + Math.floor(timer.getHours() / 24) + "d " + timer.getHours() + "h " + timer.getMinutes() + "m " + timer.getSeconds() + "s";
-                if (timeUntil < 2000) {
-                    location.reload();
+                if(timeUntil > 0){
+                    document.getElementById("timer").innerHTML = "Time until next stream: " + Math.floor(Math.abs(timeUntil / (24*3600*1000))) + "d " + timer.getHours() + "h " + timer.getMinutes() + "m " + timer.getSeconds() + "s";
+                } else {
+                    document.getElementById("timer").innerHTML = "Stream about to start!"; 
                 }
             }, 1000)
         }
