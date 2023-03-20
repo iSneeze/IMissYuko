@@ -111,7 +111,7 @@ document.getElementById("btn").onclick = function () {
 
     if (audio.src.includes("faq") || audio.src.includes("rizz")) {
         popEmote("yuyuCry");
-        display("sob", 1000);
+        display("yuyuCry", 1000);
     }
 }
 
