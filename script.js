@@ -1,7 +1,13 @@
 
 
 async function fetchAsync(url) {
-    let response = await fetch(url);
+    let settings = {
+        headers: {
+            Accept: 'application/json',
+            'X-APIKEY': '9273b048-c2a4-4cbc-a6ab-bcc18a036fa9' //pls no steal, or you're ghey af
+        }
+    }
+    let response = await fetch(url, settings);
     let data = await response.json();
     return data;
 }
@@ -10,17 +16,16 @@ var timeSince;
 let currentStreamInfo = fetchAsync("https://holodex.net/api/v2/users/live?channels=UCcIcMRVpNqWQn4WnDhRASAw&limit=1");
 currentStreamInfo.then((response) => {
     console.log(response);
-    //response = [{test: "lmao"}];
     if (response.length === 0) {
-        let lastArchiveInfo = fetchAsync("https://holodex.net/api/v2/videos?channel_id=UCcIcMRVpNqWQn4WnDhRASAw&limit=1&status=past");
+        let lastArchiveInfo = fetchAsync("https://holodex.net/api/v2/videos?channel_id=UCcIcMRVpNqWQn4WnDhRASAw&limit=7&status=past");
         lastArchiveInfo.then((archiveResponse) => {
-
+            let archive = archiveResponse.filter((vod) => vod.duration > 60).at(0);
             let d = new Date();
-            let delta = new Date(archiveResponse[0].available_at);
-            timeSince = (d - delta) - archiveResponse[0].duration * 1000;
+            let delta = new Date(archive.available_at);
+            timeSince = (d - delta) - archive.duration * 1000;
             let timer = new Date(timeSince);
             document.getElementById("timer").innerHTML = "Last seen: " + Math.floor(Math.abs(timeSince / (24 * 3600 * 1000))) + "d " + timer.getUTCHours() + "h " + timer.getMinutes() + "m " + timer.getSeconds() + "s ago streaming:";
-            document.getElementById("thumbnail").innerHTML = '<iframe src="https://www.youtube.com/embed/' + archiveResponse[0].id + '" title="YouTube video player" frameborder="0" allow="clipboard-write; web-share" allowfullscreen></iframe>';
+            document.getElementById("thumbnail").innerHTML = '<iframe src="https://www.youtube.com/embed/' + archive.id + '" title="YouTube video player" frameborder="0" allow="clipboard-write; web-share" allowfullscreen></iframe>';
 
             window.setInterval(function () {
                 timeSince = timeSince + 1000
@@ -69,7 +74,7 @@ function spinTheWheel() {
         audio.src = '/assets/sound/rick.m4a';
         lucky = true;
     }
-    
+
 }
 
 function display(filename, timeMS) {
